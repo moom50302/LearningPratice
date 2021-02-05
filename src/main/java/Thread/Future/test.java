@@ -8,7 +8,7 @@ public class test {
 
     private work work = new work();
 
-    @DisplayName("Test Future : All In All Out.")
+    @DisplayName("Test Future : All In, All Out.")
     @Test
     public void testCase1(){
 
