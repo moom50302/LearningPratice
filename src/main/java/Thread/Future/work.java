@@ -2,10 +2,16 @@ package Thread.Future;
 
 public class work {
 
+    private String name;
+
+    public work(String name){
+        this.name = name;
+    }
+
     public String doWork(){
         int totalWorkTime = (int)(10000*Math.random());
 
-        System.out.println("This work need : " +totalWorkTime + " secs to finish.");
+        System.out.println(name + " start and it needs : " +totalWorkTime + " secs to finish.");
 
         try {
             Thread.sleep(totalWorkTime);
@@ -13,6 +19,8 @@ public class work {
             e.printStackTrace();
         }
 
-        return "After " + totalWorkTime + " secs, the work done.";
+        System.out.println(name + " done.");
+
+        return "After " + totalWorkTime + " secs, " + name + " done.";
     }
 }

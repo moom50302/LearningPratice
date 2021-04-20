@@ -6,8 +6,8 @@ public class account {
 
     public void withdraw(int withdrawMoney) {
         try {
-            int totalTime = (int)(milliSecondBase*Math.random());
-            System.out.println("This move need : " + totalTime + " secs to finish.");
+            int totalTime = milliSecondBase * (int)(10*Math.random());
+            //System.out.println("This move need : " + totalTime + " secs to finish.");
 
             Thread.sleep(totalTime);
         } catch (InterruptedException e) {
@@ -20,7 +20,7 @@ public class account {
         }
 
         money -= withdrawMoney;
-        System.out.println("Now remains $ : " + money + " $");
+        System.out.println("Withdraw $ : " + withdrawMoney + " $");
     }
 
     public void deposit(int depositMoney){

@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -116,8 +115,48 @@ public class test {
         logger.debug("isTerminating: " + threadPoolExecutor.isTerminating());
     }
 
-    public void test3(){
-        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(2);
+    @DisplayName("Test ThreadPool : Test Case 3 : awaitTermination with isShutdown Check")
+    @Test
+    public void testCase3() {
+        ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
+
+        threadPoolExecutor.submit(() -> {
+            Thread.sleep(3000);
+            return null;
+        });
+        threadPoolExecutor.submit(() -> {
+            Thread.sleep(3000);
+            return null;
+        });
+        threadPoolExecutor.submit(() -> {
+            Thread.sleep(3000);
+            return null;
+        });
+        threadPoolExecutor.submit(() -> {
+            Thread.sleep(9000);
+            return null;
+        });
+
+        while(threadPoolExecutor.getActiveCount()>0){
+            System.out.println("All Tasks Not Done yet.");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            /* all tasks finished, return true */
+            logger.debug("awaitTermination: "+threadPoolExecutor.awaitTermination(3, TimeUnit.SECONDS));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        /* ThreadPoolExecutor after using shutdown(),
+         * isTerminated() => true; isTerminating() => false */
+        logger.debug("isTerminated: " + threadPoolExecutor.isTerminated());
+        logger.debug("isTerminating: " + threadPoolExecutor.isTerminating());
     }
 
     @BeforeAll
