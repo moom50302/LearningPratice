@@ -4,7 +4,7 @@ import java.util.concurrent.*;
 
 public class workExecutorService {
 
-    private final ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(3);
+    private final ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10, 10, 60L, TimeUnit.SECONDS,new ArrayBlockingQueue(3));
 
     public Future<String> serviceAsync(work work){
         return threadPoolExecutor.submit(()->service(work));
